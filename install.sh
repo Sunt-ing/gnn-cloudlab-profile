@@ -14,6 +14,12 @@ if which conda > /dev/null; then
     exit
 fi
 
+if [ -d "/opt/miniconda" ]; then
+    # to install cuda
+    # maybe we shall manually do this due to the special mechanism of CloudLab.
+    sudo reboot
+fi
+
 # base software
 sudo apt-get update
 sudo apt-get install -y zsh git tmux build-essential htop apt-transport-https ca-certificates curl gnupg lsb-release jq firewalld
@@ -40,6 +46,4 @@ sudo bash $INSTALLER_NAME -b -p /opt/miniconda
 rm $INSTALLER_NAME
 echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc
 
-# to install cuda
-# maybe we shall manually do this due to the special mechanism of CloudLab.
-# sudo reboot
+
