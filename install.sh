@@ -10,7 +10,7 @@ if which conda > /dev/null; then
     echo "export DGLBACKEND=pytorch" >> "$HOME/.bashrc"
     echo -e "\n\n Successfully installed pytorch and dgl"
     echo -e "begin test"
-    python ~/GAEA/test_dgl.py
+    python /local/repository/test_dgl.py
     exit
 fi
 
