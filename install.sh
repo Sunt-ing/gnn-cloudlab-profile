@@ -17,7 +17,8 @@ fi
 if [ -d "/opt/miniconda" ]; then
     # to install cuda
     # maybe we shall manually do this due to the special mechanism of CloudLab.
-    sudo reboot
+    echo "miniconda exists. exit."
+    exit
 fi
 
 # base software
