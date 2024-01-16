@@ -18,7 +18,7 @@ pc.defineParameter("user_names", "Usernames (split with space)", portal.Paramete
 pc.defineParameter("project_group_name", "Project group name", portal.ParameterType.STRING, "GAEA")
 pc.defineParameter("os_image", "OS image", portal.ParameterType.IMAGE, imageList[0], imageList)
 pc.defineParameter("node_hw", "GPU node type", portal.ParameterType.NODETYPE, "c240g5")
-pc.defineParameter("data_size", "GPU node local storage size", portal.ParameterType.STRING, "512GB")
+pc.defineParameter("data_size", "GPU node local storage size", portal.ParameterType.STRING, "1024GB")
 
 params = pc.bindParameters()
 request = pc.makeRequestRSpec()
