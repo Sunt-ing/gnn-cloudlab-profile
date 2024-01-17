@@ -40,4 +40,4 @@ sudo bash $INSTALLER_NAME -b -p /opt/miniconda
 rm $INSTALLER_NAME
 echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc
 
-
+sudo reboot
