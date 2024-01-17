@@ -1,18 +1,49 @@
 #!/bin/bash
+set -ex
+
+# Log output of this script to syslog.
+# https://urbanautomaton.com/blog/2014/09/09/redirecting-bash-script-output-to-syslog/
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+
+PROJ_GROUP="$1"
+
+# whoami
+echo "Running as $(whoami)"
+
+# i am root now
+if [[ $EUID -ne 0 ]]; then
+  echo "Escalating to root with sudo"
+  exec sudo /bin/bash "$0" "$@"
+fi
+
 
 # install dgl and pytorch after reboot
-if which conda > /dev/null; then
+if [ -d "/opt/miniconda" ]; then
+    nvidia-smi
     # pytorch 2.1 with cuda 12.1
     conda install -y pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+
+    # base GPU software
+    pip3 install --upgrade nvitop
+    echo 'alias nv=nvitop' >> "$HOME/.bashrc"
+
+    pip install requests lightning==2.0.6 ogb torchmetrics==0.11.4
+    pip install tensorboard
+
     # dgl with cuda 12.1
     pip install dgl -f https://data.dgl.ai/wheels/cu121/repo.html
     pip install dglgo -f https://data.dgl.ai/wheels-test/repo.html
     echo "export DGLBACKEND=pytorch" >> "$HOME/.bashrc"
-    echo -e "\n\n Successfully installed pytorch and dgl"
-    echo -e "begin test"
-    python /local/repository/test_dgl.py
+    echo -e "begin testing pytorch and dgl"
+    python ./test_dgl.py
+
+    echo 'export PATH="$PATH:$HOME/.local/bin"' >> "$HOME/.bashrc"
+
+    source "$HOME/.bashrc"
+
     exit
 fi
+
 
 # base software
 sudo apt-get update
@@ -38,6 +69,7 @@ wget -q $INSTALLER_URL
 chmod +x $INSTALLER_NAME
 sudo bash $INSTALLER_NAME -b -p /opt/miniconda
 rm $INSTALLER_NAME
-echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="/opt/miniconda/bin:$PATH"' >> "$HOME/.bashrc"
 
+# to install cuda
 sudo reboot
