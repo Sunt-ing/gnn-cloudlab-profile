@@ -14,13 +14,6 @@ if which conda > /dev/null; then
     exit
 fi
 
-if [ -d "/opt/miniconda" ]; then
-    # to install cuda
-    # maybe we shall manually do this due to the special mechanism of CloudLab.
-    echo "miniconda exists. exit."
-    exit
-fi
-
 # base software
 sudo apt-get update
 sudo apt-get install -y zsh git tmux build-essential htop apt-transport-https ca-certificates curl gnupg lsb-release jq firewalld
