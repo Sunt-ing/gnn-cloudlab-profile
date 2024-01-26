@@ -70,6 +70,7 @@ chmod +x $INSTALLER_NAME
 sudo bash $INSTALLER_NAME -b -p /opt/miniconda
 rm $INSTALLER_NAME
 echo 'export PATH="/opt/miniconda/bin:$PATH"' >> "$HOME/.bashrc"
+sudo chmod a+rw -R /opt/miniconda
 
 # to install cuda
 sudo reboot
