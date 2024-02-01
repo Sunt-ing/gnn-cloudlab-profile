@@ -30,5 +30,5 @@ bs.size = params.data_size
 intf = node.addInterface("if1")
 intf.addAddress(rspec.IPv4Address("192.168.1.{}".format(0), "255.255.255.0"))
 # node.addService(rspec.Execute(shell="bash", command="/local/repository/setup-node.sh"))
-node.addService(rspec.Execute(shell="bash", command="/local/repository/install.sh"))
+# node.addService(rspec.Execute(shell="bash", command="/local/repository/install.sh"))
 pc.printRequestRSpec(request)
